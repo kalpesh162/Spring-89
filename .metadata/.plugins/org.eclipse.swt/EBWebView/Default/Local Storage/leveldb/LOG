@@ -1,2 +1,3 @@
-2026/10/06-15:56:15.885 1fa8 Creating DB E:\Spring-89\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb since it was missing.
-2026/10/06-15:56:16.580 1fa8 Reusing MANIFEST E:\Spring-89\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2026/10/06-18:50:03.458 1e80 Reusing MANIFEST E:\Spring-89\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2026/10/06-18:50:03.460 1e80 Recovering log #3
+2026/10/06-18:50:03.462 1e80 Reusing old log E:\Spring-89\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/000003.log 

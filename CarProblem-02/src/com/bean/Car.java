@@ -1,0 +1,26 @@
+package com.bean;
+
+public class Car {
+
+	private Engine engine;
+
+	public Car() {
+
+	}
+
+	// Constructor Injection
+	public Car(Engine engine) {
+		super();
+		this.engine = engine;
+	}
+
+	public Engine getEngine() {
+		return engine;
+	}
+
+	// Setter Injection
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+	}
+
+}
