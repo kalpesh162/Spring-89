@@ -1,0 +1,74 @@
+package com.bean;
+
+import java.util.List;
+import java.util.Set;
+
+public class Employee {
+	private int id;
+	private String name;
+	private double salary;
+
+	private Set<String> depts;
+
+	public Employee() {
+		System.out.println("Deault Constructor");
+	}
+
+	public Employee(int id, String name, double salary) {
+		System.out.println("Parameterized Constructor");
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+	}
+
+	public Employee(int id, String name, double salary, Set<String> depts) {
+		System.out.println("Parameterized Constructor  LIST<String>");
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+		this.depts = depts;
+
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		System.out.println("SET ID");
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		System.out.println("SET NAME");
+		this.name = name;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		System.out.println("SET SALARY");
+		this.salary = salary;
+	}
+
+	public Set<String> getDepts() {
+		return depts;
+	}
+
+	public void setDepts(Set<String> depts) {
+		System.out.println("SEL LIST");
+		this.depts = depts;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
+	}
+
+}
