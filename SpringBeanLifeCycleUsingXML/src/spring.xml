@@ -8,15 +8,9 @@
 
 	<!-- bean definitions here -->
 
-
-
 	<bean id="tree" class="com.bean.Tree" init-method="initmethod" destroy-method="destroy">
 		<property name="name" value="Tulsi"></property>
 		<property name="ht" value="5.5"></property>
 	</bean>
-
-
-
-
 
 </beans>
