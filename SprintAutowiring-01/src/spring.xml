@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		<!-- bean definitions of address1 -->
+
+		<bean id="address1" class="com.bean.Address">
+		<property name="landMark" value="FC ROAD"></property>
+		<property name="city" value="PUNE"></property>
+		<property name="pincode" value="424123"></property>
+		</bean>
+ 
+	<!-- bean definitions of employee1 -->
+
+<!-- 	
+	<bean id="employee1" class="com.bean.Employee" autowire="byType">
+
+		<property name="id" value="11"></property>
+		<property name="name" value="Kalpesh"></property>
+		<property name="salary" value="10000"></property>
+
+	   
+	</bean>
+	 -->
+ 
+
+
+
+
+</beans>
