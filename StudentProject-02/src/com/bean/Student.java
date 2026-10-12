@@ -1,9 +1,10 @@
 package com.bean;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("stud")
 public class Student {
 	@Value("11")
 	private int id;
@@ -11,6 +12,10 @@ public class Student {
 	private String name;
 	@Value("55.55")
 	private double marks;
+
+	// ref type
+	// 1: @Autowired // Field Injection
+	private Address address;
 
 	public Student() {
 		// TODO Auto-generated constructor stub
@@ -21,6 +26,22 @@ public class Student {
 		this.id = id;
 		this.name = name;
 		this.marks = marks;
+	}
+
+	//@Autowired   NOT WORKS
+	public Student(int id, String name, double marks, Address address) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.marks = marks;
+		this.address = address;
+	}
+
+	
+	@Autowired
+	public Student(Address address) {
+		super();
+		this.address = address;
 	}
 
 	public int getId() {
@@ -50,6 +71,16 @@ public class Student {
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", name=" + name + ", marks=" + marks + "]";
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	// 2: @Autowired // setter Injection
+	public void setAddress(Address address) {
+		System.out.println("SET Address Called");
+		this.address = address;
 	}
 
 }
