@@ -38,7 +38,7 @@ public class Student {
 	}
 
 	
-	@Autowired
+	@Autowired   // Constructor Injection
 	public Student(Address address) {
 		super();
 		this.address = address;
