@@ -20,7 +20,8 @@ public class App {
 		// StudentService service
 		// =(StudentService)context.getBean(StudentServiceImpl.class);
 		StudentService service = (StudentService) context.getBean(StudentService.class);
-		StudentService service1 = (StudentService) context.getBean(StudentService.class);
+		//StudentService service = (StudentService) context.getBean("studentServiceImpl");
+//		StudentService service1 = (StudentService) context.getBean(StudentService.class);
 
 		service.enrolledStudent(s1);
 		service.enrolledStudent(s2);
