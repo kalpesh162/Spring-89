@@ -75,13 +75,14 @@ public class App {
 
 		// 4. Delete student
 		System.out.println("----- DELETE STUDENT -----");
-		service.removeStudentById(4);
+		//service.removeStudentById(4);
 
 		System.out.println("Student deleted successfully");
 
 		// Verify deletion
 		System.out.println("----- AFTER DELETE -----");
-		System.out.println(service.getAllStudents());
+		for (Student student2 : service.getAllStudents())
+			System.out.println(student2);
 
 		context.close();
 
