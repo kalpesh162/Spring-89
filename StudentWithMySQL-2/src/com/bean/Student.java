@@ -19,6 +19,12 @@ public class Student {
 		this.marks = marks;
 	}
 
+	public Student(String name, double marks) {
+
+		this.name = name;
+		this.marks = marks;
+	}
+
 	public int getId() {
 		return id;
 	}

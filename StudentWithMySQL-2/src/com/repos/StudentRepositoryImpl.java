@@ -7,131 +7,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bean.Student;
 
 @Repository
 public class StudentRepositoryImpl implements StudentRepository {
-
-	private DriverManagerDataSource dataSource;
+	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	public StudentRepositoryImpl(DriverManagerDataSource dataSource) {
-		this.dataSource = dataSource;
+	public StudentRepositoryImpl(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	@Override
 	public boolean addStudent(Student student) {
-		try (Connection connection = dataSource.getConnection();) {
-			String sql = "insert into student (name,marks)  values (?,?)";
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, student.getName());
-			ps.setDouble(2, student.getMarks());
-			return ps.executeUpdate() > 0;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String sql = "insert into student (name,marks)  values (?,?)";
 
-		return false;
-
+		return jdbcTemplate.update(sql, student.getName(), student.getMarks()) > 0;
 	}
 
 	@Override
 	public void deleteStudentById(int id) {
 		String sql = "DELETE FROM student WHERE id = ?";
 
-		try (Connection connection = dataSource.getConnection();
-				PreparedStatement ps = connection.prepareStatement(sql)) {
+		int rows = jdbcTemplate.update(sql, id);
 
-			ps.setInt(1, id);
-
-			int rows = ps.executeUpdate();
-
-			if (rows == 0) {
-				throw new RuntimeException("Student with id not found: " + id);
-			}
-
-		} catch (RuntimeException e) {
-			throw e;
-		} catch (Exception e) {
-			throw new RuntimeException("Error deleting student", e);
+		if (rows == 0) {
+			throw new RuntimeException("Student not found: " + id);
 		}
+
 	}
 
 	@Override
 	public boolean updateStudent(int existingID, Student updatedstudent) {
 		String sql = "UPDATE student SET name = ?, marks = ? WHERE id = ?";
 
-		try (Connection connection = dataSource.getConnection();
-				PreparedStatement ps = connection.prepareStatement(sql)) {
+		int rows = jdbcTemplate.update(sql, updatedstudent.getName(), updatedstudent.getMarks(), existingID);
 
-			ps.setString(1, updatedstudent.getName());
-			ps.setDouble(2, updatedstudent.getMarks());
-			ps.setInt(3, existingID);
+		return rows > 0;
 
-			return ps.executeUpdate() > 0;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return false;
 	}
 
 	@Override
 	public Student findStudentById(int id) {
 		String sql = "SELECT id, name, marks FROM student WHERE id = ?";
 
-		try (Connection connection = dataSource.getConnection();
-				PreparedStatement ps = connection.prepareStatement(sql)) {
-
-			ps.setInt(1, id);
-
-			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next()) {
-					Student student = new Student();
-
-					student.setId(rs.getInt("id"));
-					student.setName(rs.getString("name"));
-					student.setMarks(rs.getDouble("marks"));
-
-					return student;
-				}
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		Student student = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Student>(Student.class), id);
 		return null;
 	}
 
 	@Override
 	public List<Student> findAllStudents() {
-		List<Student> studList = new ArrayList<>();
-
 		String sql = "SELECT id, name, marks FROM student";
-
-		try (Connection connection = dataSource.getConnection();
-				PreparedStatement ps = connection.prepareStatement(sql);
-				ResultSet rs = ps.executeQuery()) {
-
-			while (rs.next()) {
-				Student student = new Student();
-
-				student.setId(rs.getInt("id"));
-				student.setName(rs.getString("name"));
-				student.setMarks(rs.getDouble("marks"));
-
-				studList.add(student);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return studList;
+		List<Student> students = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Student>(Student.class));
+		return students;
 	}
 }
